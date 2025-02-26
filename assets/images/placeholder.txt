@@ -1,8 +1,0 @@
-This directory is for storing images used in blog posts.
-
-To add an image to your post:
-1. Place the image file in this directory
-2. Reference it in your markdown like this:
-   ![Alt text](/assets/images/your-image.jpg)
-
-Remember to use descriptive alt text for accessibility. 
