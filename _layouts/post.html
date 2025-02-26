@@ -4,131 +4,152 @@ layout: default
 
 <article class="post">
   <header class="post-header">
-    <h1>{{ page.title }}</h1>
-    
+    <h1 class="post-title">{{ page.title }}</h1>
     {% if page.subtitle %}
-    <p class="subtitle">{{ page.subtitle }}</p>
+      <h2 class="post-subtitle">{{ page.subtitle }}</h2>
     {% endif %}
     
-    <div class="metadata">
-      {% if page.date %}
-      <p><strong>Date:</strong> {{ page.date | date: "%Y-%m-%d" }}{% if page.last_modified_at %}&ndash;{{ page.last_modified_at | date: "%Y-%m-%d" }}{% endif %}</p>
+    <div class="post-metadata">
+      <div class="metadata-item">
+        <span class="metadata-label">Date:</span>
+        <span class="metadata-value">{{ page.date | date: "%B %d, %Y" }}</span>
+      </div>
+      
+      {% if page.last_modified_at %}
+      <div class="metadata-item">
+        <span class="metadata-label">Last Modified:</span>
+        <span class="metadata-value">{{ page.last_modified_at | date: "%B %d, %Y" }}</span>
+      </div>
       {% endif %}
       
       {% if page.status %}
-      <p><strong>Status:</strong> {{ page.status }}</p>
+      <div class="metadata-item">
+        <span class="metadata-label">Status:</span>
+        <span class="metadata-value">{{ page.status }}</span>
+      </div>
       {% endif %}
       
       {% if page.confidence %}
-      <p><strong>Confidence:</strong> {{ page.confidence }}</p>
+      <div class="metadata-item">
+        <span class="metadata-label">Confidence:</span>
+        <span class="metadata-value">{{ page.confidence }}</span>
+      </div>
       {% endif %}
       
       {% if page.importance %}
-      <p><strong>Importance:</strong> {{ page.importance }}</p>
+      <div class="metadata-item">
+        <span class="metadata-label">Importance:</span>
+        <span class="metadata-value">{{ page.importance }}/5</span>
+      </div>
       {% endif %}
       
-      {% if page.tags %}
-      <p><strong>Tags:</strong> 
-        {% for tag in page.tags %}
-        <a href="{{ site.baseurl }}/tags/#{{ tag | slugify }}" class="post-tag">{{ tag }}</a>
-        {% endfor %}
-      </p>
+      {% if page.tags.size > 0 %}
+      <div class="metadata-item">
+        <span class="metadata-label">Tags:</span>
+        <span class="metadata-value">
+          {% for tag in page.tags %}
+            <a href="{{ site.baseurl }}/tags/#{{ tag | slugify }}" class="post-tag">{{ tag }}</a>
+          {% endfor %}
+        </span>
+      </div>
       {% endif %}
     </div>
-    
-    {% if page.abstract %}
-    <div class="abstract">
-      {{ page.abstract | markdownify }}
-    </div>
-    {% endif %}
-    
-    {% if page.toc %}
-    <div class="toc">
-      <div class="toc-title">Table of Contents</div>
-      {% include toc.html html=content %}
-    </div>
-    {% endif %}
   </header>
+
+  {% if page.abstract %}
+  <div class="post-abstract">
+    <h3>Abstract</h3>
+    <p>{{ page.abstract | markdownify }}</p>
+  </div>
+  {% endif %}
+
+  {% if page.toc %}
+  <div class="post-toc">
+    <h3>Table of Contents</h3>
+    <div class="toc-content">
+      {% include toc.html html=content h_min=2 h_max=4 %}
+    </div>
+  </div>
+  {% endif %}
 
   <div class="post-content dropcap">
     {{ content }}
   </div>
 
-  {% if page.backlinks %}
+  {% if page.backlinks and page.backlinks.size > 0 %}
   <div class="collapse">
     <div class="collapse-header">Backlinks</div>
     <div class="collapse-content">
-      <ul>
+      <ul class="backlinks-list">
         {% for backlink in page.backlinks %}
-        <li>
-          <a href="{{ backlink.url }}">{{ backlink.title }}</a>
-          {% if backlink.context %}
-          <div class="backlink-context">{{ backlink.context }}</div>
-          {% endif %}
-        </li>
+          <li class="backlink-item">
+            <a href="{{ backlink.url }}" class="backlink-title">{{ backlink.title }}</a>
+            <div class="backlink-context">{{ backlink.context }}</div>
+          </li>
         {% endfor %}
       </ul>
     </div>
   </div>
   {% endif %}
-  
-  {% if page.similar_links %}
+
+  {% if page.similar_links and page.similar_links.size > 0 %}
   <div class="collapse">
     <div class="collapse-header">Similar Links</div>
     <div class="collapse-content">
-      <ul>
+      <ul class="similar-links-list">
         {% for link in page.similar_links %}
-        <li>
-          <a href="{{ link.url }}">{{ link.title }}</a>
-          {% if link.description %}
-          <div>{{ link.description }}</div>
-          {% endif %}
-        </li>
+          <li class="similar-link-item">
+            <a href="{{ link.url }}" class="similar-link-title">{{ link.title }}</a>
+            {% if link.description %}
+              <div class="similar-link-description">{{ link.description }}</div>
+            {% endif %}
+          </li>
         {% endfor %}
       </ul>
     </div>
   </div>
   {% endif %}
-  
-  {% if page.bibliography %}
-  <div class="collapse">
-    <div class="collapse-header">Bibliography</div>
-    <div class="collapse-content">
-      <ul>
-        {% for item in page.bibliography %}
-        <li>
-          {% if item.url %}
-          <a href="{{ item.url }}" {% if item.popup_id %}data-popup="{{ item.popup_id }}"{% endif %}>{{ item.title }}</a>
+
+  {% if page.bibliography and page.bibliography.size > 0 %}
+  <div class="post-bibliography">
+    <h3>Bibliography</h3>
+    <ul class="bibliography-list">
+      {% for reference in page.bibliography %}
+        <li class="bibliography-item">
+          {% if reference.url %}
+            <a href="{{ reference.url }}" class="bibliography-title" {% if reference.popup_id %}data-popup="{{ reference.popup_id }}"{% endif %}>{{ reference.title }}</a>
           {% else %}
-          {{ item.title }}
+            <span class="bibliography-title">{{ reference.title }}</span>
           {% endif %}
-          {% if item.author %}
-          by {{ item.author }}
+          {% if reference.author %}
+            <span class="bibliography-author">{{ reference.author }}</span>
           {% endif %}
-          {% if item.year %}
-          ({{ item.year }})
+          {% if reference.year %}
+            <span class="bibliography-year">({{ reference.year }})</span>
           {% endif %}
         </li>
-        {% endfor %}
-      </ul>
-    </div>
+      {% endfor %}
+    </ul>
   </div>
   {% endif %}
-  
+
   <div class="post-navigation">
     {% if page.previous.url %}
-    <a class="prev" href="{{ page.previous.url | relative_url }}">&laquo; {{ page.previous.title }}</a>
+      <a class="prev" href="{{ page.previous.url | relative_url }}">&laquo; {{ page.previous.title }}</a>
     {% endif %}
     {% if page.next.url %}
-    <a class="next" href="{{ page.next.url | relative_url }}">{{ page.next.title }} &raquo;</a>
+      <a class="next" href="{{ page.next.url | relative_url }}">{{ page.next.title }} &raquo;</a>
     {% endif %}
   </div>
 </article>
 
-{% for popup in page.popups %}
-<div id="{{ popup.id }}" style="display: none;">
-  <h3>{{ popup.title }}</h3>
-  {{ popup.content | markdownify }}
+{% if page.popups and page.popups.size > 0 %}
+<div class="popups">
+  {% for popup in page.popups %}
+    <div id="{{ popup.id }}" class="popup-content">
+      <h4>{{ popup.title }}</h4>
+      <p>{{ popup.content }}</p>
+    </div>
+  {% endfor %}
 </div>
-{% endfor %} 
-</article> 
+{% endif %} 

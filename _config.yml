@@ -1,8 +1,12 @@
 title: Isaac Audet
 description: Thoughts on AI and more
-url: https://isaacaudet.github.io
+url: https://isaacaudet.com
 baseurl: ""
 author: Isaac Audet
+
+# Social media
+twitter_username: 
+github_username: isaacaudet
 
 # Build settings
 markdown: kramdown
@@ -16,6 +20,19 @@ plugins:
 paginate: 5
 paginate_path: "/page:num/"
 
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .bundle
+  - serve.sh
+  - serve.bat
+  - new-post.sh
+  - README.md
+  - WRITING_GUIDE.md
+
 # Defaults
 defaults:
   -
@@ -24,4 +41,7 @@ defaults:
       type: "posts"
     values:
       layout: "post"
-      author: "Isaac Audet" 
+      author: "Isaac Audet"
+      
+# Theme settings
+theme: jekyll-theme-primer 

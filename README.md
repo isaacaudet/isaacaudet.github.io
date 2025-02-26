@@ -6,33 +6,65 @@ This is the source code for my personal blog at [isaacaudet.com](https://isaacau
 
 This blog is built with [Jekyll](https://jekyllrb.com/), a static site generator, and hosted on [GitHub Pages](https://pages.github.com/).
 
-## Local Development
+## Running Locally
+
+To run this blog locally on your machine, follow these steps:
 
 ### Prerequisites
 
-- [Ruby](https://www.ruby-lang.org/en/downloads/) (version 2.5.0 or higher)
-- [RubyGems](https://rubygems.org/pages/download)
-- [Bundler](https://bundler.io/)
+1. **Ruby**: Jekyll requires Ruby version 2.5.0 or higher.
+   - Check your Ruby version with `ruby -v`
+   - Install Ruby from [ruby-lang.org](https://www.ruby-lang.org/en/documentation/installation/) if needed
 
-### Setup
+2. **Bundler**: This manages Ruby gem dependencies.
+   - Install with `gem install bundler`
+   - Verify installation with `bundler -v`
 
-1. Clone this repository:
+### Setup and Run
+
+1. **Clone the repository** (if you haven't already):
    ```bash
-   git clone https://github.com/isaacaudet/isaacaudet.github.io.git
-   cd isaacaudet.github.io
+   git clone https://github.com/yourusername/isaacaudet.com.git
+   cd isaacaudet.com
    ```
 
-2. Install dependencies:
+2. **Install dependencies**:
    ```bash
    bundle install
    ```
 
-3. Run the site locally:
+3. **Start the local server**:
    ```bash
    bundle exec jekyll serve
    ```
 
-4. Open your browser and visit `http://localhost:4000`
+4. **View your site** at [http://localhost:4000](http://localhost:4000)
+
+### Development Options
+
+- **Live reload**: Add `--livereload` to automatically refresh the page when files change:
+  ```bash
+  bundle exec jekyll serve --livereload
+  ```
+
+- **Draft posts**: Add `--drafts` to include posts in the `_drafts` folder:
+  ```bash
+  bundle exec jekyll serve --drafts
+  ```
+
+- **Incremental build**: Add `--incremental` for faster builds when making small changes:
+  ```bash
+  bundle exec jekyll serve --incremental
+  ```
+
+### Troubleshooting
+
+- **Missing dependencies**: If you see errors about missing gems, run `bundle install` again
+- **Port conflicts**: If port 4000 is in use, specify a different port with `--port`:
+  ```bash
+  bundle exec jekyll serve --port 4001
+  ```
+- **Permission issues**: On some systems, you might need to use `sudo` for gem installation
 
 ## Creating New Posts
 
