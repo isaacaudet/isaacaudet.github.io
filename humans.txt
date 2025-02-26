@@ -1,0 +1,14 @@
+/* TEAM */
+	Author: Isaac Audet
+	Contact: contact@isaacaudet.com
+	Instagram: @isaac_audet
+	TikTok: @isaacaude
+	From: United States
+
+/* SITE */
+	Last update: 2023
+	Language: English
+	Doctype: HTML5
+	IDE: Visual Studio Code, Cursor
+	Generator: Jekyll
+	Hosting: GitHub Pages 

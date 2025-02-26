@@ -1,55 +1,346 @@
 ---
 layout: default
 ---
+
 <div class="home">
-  <div class="intro">
-    <h1>{{ site.title }}</h1>
+  <section class="intro">
+    <h1 class="site-heading">{{ site.title }}</h1>
     <p class="subtitle">{{ site.description }}</p>
-  </div>
-
-  <div class="posts">
-    {% for post in paginator.posts %}
-    <article class="post-item">
-      <h2 class="post-title">
-        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-      </h2>
-      <div class="post-meta">
-        <time datetime="{{ post.date | date_to_xmlschema }}">
-          {{ post.date | date: "%B %-d, %Y" }}
-        </time>
+    
+    <div class="hero-links">
+      <a href="{{ '/about/' | relative_url }}" class="hero-link">About Me</a>
+      <a href="{{ '/work/' | relative_url }}" class="hero-link">My Work</a>
+      <a href="{{ '/thoughts/' | relative_url }}" class="hero-link">Thoughts</a>
+    </div>
+  </section>
+  
+  <section class="featured-content">
+    <h2 class="section-heading">Recent Thoughts</h2>
+    
+    <div class="post-grid">
+      {% assign posts = site.posts | sort: 'date' | reverse %}
+      {% for post in posts limit:3 %}
+        <div class="post-item">
+          <div class="post-meta">
+            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
+            {% if post.categories %}
+              <span class="post-categories">
+                {% for category in post.categories limit:1 %}
+                  <a href="{{ '/categories/#' | append: category | slugize | relative_url }}">{{ category }}</a>
+                {% endfor %}
+              </span>
+            {% endif %}
+            <span class="reading-time">
+              {% assign words = post.content | number_of_words %}
+              {% if words < 360 %}
+                1 min read
+              {% else %}
+                {{ words | divided_by: 180 }} min read
+              {% endif %}
+            </span>
+          </div>
+          
+          <h3 class="post-title">
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          </h3>
+          
+          <div class="post-excerpt">
+            {{ post.excerpt | strip_html | truncatewords: 30 }}
+          </div>
+          
+          <a href="{{ post.url | relative_url }}" class="read-more">Continue reading →</a>
+        </div>
+      {% endfor %}
+    </div>
+    
+    <div class="view-all">
+      <a href="{{ '/archive/' | relative_url }}" class="view-all-link">View all posts →</a>
+    </div>
+  </section>
+  
+  <section class="featured-work">
+    <h2 class="section-heading">Featured Work</h2>
+    
+    <div class="work-grid">
+      <div class="work-item">
+        <div class="work-image">
+          <img src="{{ '/assets/images/gallery/image1.jpg' | relative_url }}" alt="Project 1" />
+        </div>
+        <div class="work-info">
+          <h3>Project Alpha</h3>
+          <p>An AI-powered content analysis platform that helps creators understand audience engagement patterns.</p>
+          <a href="{{ '/work/' | relative_url }}" class="work-link">Learn more →</a>
+        </div>
       </div>
-      <div class="post-excerpt">
-        {{ post.excerpt }}
-        <a href="{{ post.url | relative_url }}" class="read-more">Read more &raquo;</a>
+      
+      <div class="work-item">
+        <div class="work-image">
+          <img src="{{ '/assets/images/gallery/image2.jpg' | relative_url }}" alt="Project 2" />
+        </div>
+        <div class="work-info">
+          <h3>Project Beta</h3>
+          <p>A machine learning system designed to predict market trends based on social media sentiment analysis.</p>
+          <a href="{{ '/work/' | relative_url }}" class="work-link">Learn more →</a>
+        </div>
       </div>
-    </article>
-    {% endfor %}
-  </div>
+    </div>
+  </section>
+  
+  <section class="connect">
+    <h2 class="section-heading">Let's Connect</h2>
+    
+    <div class="connect-grid">
+      <a href="https://instagram.com/isaac_audet" target="_blank" class="connect-item instagram">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+        </svg>
+        <span>Instagram</span>
+        <span class="connect-username">@isaac_audet</span>
+      </a>
+      
+      <a href="https://tiktok.com/@isaacaude" target="_blank" class="connect-item tiktok">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 12a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"></path>
+          <path d="M15 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path>
+          <path d="M15 8v8a4 4 0 0 1-4 4"></path>
+          <line x1="15" y1="4" x2="15" y2="12"></line>
+        </svg>
+        <span>TikTok</span>
+        <span class="connect-username">@isaacaude</span>
+      </a>
+      
+      <a href="mailto:contact@isaacaudet.com" class="connect-item email">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+          <polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+        <span>Email</span>
+        <span class="connect-username">contact@isaacaudet.com</span>
+      </a>
+    </div>
+  </section>
+</div>
 
-  <!-- Pagination links -->
-  {% if paginator.total_pages > 1 %}
-  <div class="pagination">
-    {% if paginator.previous_page %}
-      <a href="{{ paginator.previous_page_path | relative_url }}" class="previous">&laquo; Previous</a>
-    {% else %}
-      <span class="previous">&laquo; Previous</span>
-    {% endif %}
-
-    {% for page in (1..paginator.total_pages) %}
-      {% if page == paginator.page %}
-        <span class="page-number current">{{ page }}</span>
-      {% elsif page == 1 %}
-        <a href="{{ '/' | relative_url }}" class="page-number">{{ page }}</a>
-      {% else %}
-        <a href="{{ site.paginate_path | relative_url | replace: ':num', page }}" class="page-number">{{ page }}</a>
-      {% endif %}
-    {% endfor %}
-
-    {% if paginator.next_page %}
-      <a href="{{ paginator.next_page_path | relative_url }}" class="next">Next &raquo;</a>
-    {% else %}
-      <span class="next">Next &raquo;</span>
-    {% endif %}
-  </div>
-  {% endif %}
-</div> 
+<style>
+  .home .intro {
+    text-align: center;
+    margin: var(--spacing-lg) 0 var(--spacing-lg);
+    animation: fadeInUp 1s ease-out;
+  }
+  
+  .site-heading {
+    font-size: 3.5rem;
+    margin-bottom: var(--spacing-sm);
+    letter-spacing: -0.03em;
+  }
+  
+  .subtitle {
+    font-size: 1.3rem;
+    color: var(--color-text-light);
+    max-width: 36rem;
+    margin: 0 auto var(--spacing-md);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+  }
+  
+  .hero-links {
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: center;
+    margin-top: var(--spacing-md);
+  }
+  
+  .hero-link {
+    display: inline-block;
+    padding: 0.6rem 1.2rem;
+    background-color: var(--color-accent-light);
+    color: var(--color-accent);
+    border-radius: 4px;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    transition: all var(--transition-speed) ease;
+    border-bottom: none;
+  }
+  
+  .hero-link:hover {
+    background-color: var(--color-accent);
+    color: white;
+    transform: translateY(-3px);
+    border-bottom: none;
+  }
+  
+  .section-heading {
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+    position: relative;
+    display: inline-block;
+  }
+  
+  .section-heading::after {
+    content: "";
+    position: absolute;
+    bottom: -0.5rem;
+    left: 50%;
+    width: 3rem;
+    height: 2px;
+    background-color: var(--color-accent);
+    transform: translateX(-50%);
+  }
+  
+  .featured-content, .featured-work, .connect {
+    margin: var(--spacing-lg) 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .post-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+    width: 100%;
+  }
+  
+  .view-all {
+    margin-top: var(--spacing-md);
+    text-align: center;
+  }
+  
+  .view-all-link {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background-color: var(--color-accent-light);
+    color: var(--color-accent);
+    border-radius: 4px;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    transition: all var(--transition-speed) ease;
+    border-bottom: none;
+  }
+  
+  .view-all-link:hover {
+    background-color: var(--color-accent);
+    color: white;
+    transform: translateY(-2px);
+    border-bottom: none;
+  }
+  
+  .work-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: var(--spacing-md);
+    width: 100%;
+  }
+  
+  .work-item {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+    background-color: var(--color-accent-light);
+  }
+  
+  .work-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+  
+  .work-image {
+    height: 200px;
+    overflow: hidden;
+  }
+  
+  .work-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin: 0;
+    transition: transform 0.5s ease;
+  }
+  
+  .work-item:hover .work-image img {
+    transform: scale(1.05);
+  }
+  
+  .work-info {
+    padding: var(--spacing-sm);
+  }
+  
+  .work-info h3 {
+    margin-top: 0;
+    margin-bottom: var(--spacing-xs);
+    font-size: 1.3rem;
+  }
+  
+  .work-info p {
+    margin-bottom: var(--spacing-sm);
+    font-size: 0.95rem;
+    color: var(--color-text-light);
+  }
+  
+  .work-link {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 0.9rem;
+    border-bottom: none;
+  }
+  
+  .connect-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+    width: 100%;
+  }
+  
+  .connect-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--spacing-md);
+    border-radius: 8px;
+    background-color: var(--color-accent-light);
+    transition: all var(--transition-speed) ease;
+    border-bottom: none;
+    text-align: center;
+  }
+  
+  .connect-item:hover {
+    transform: translateY(-5px);
+    background-color: var(--color-accent);
+    color: white;
+    border-bottom: none;
+  }
+  
+  .connect-item svg {
+    margin-bottom: var(--spacing-sm);
+    width: 32px;
+    height: 32px;
+  }
+  
+  .connect-item span {
+    font-family: var(--font-sans);
+  }
+  
+  .connect-username {
+    margin-top: var(--spacing-xs);
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+  
+  @media (max-width: 768px) {
+    .site-heading {
+      font-size: 2.5rem;
+    }
+    
+    .hero-links {
+      flex-direction: column;
+      gap: var(--spacing-xs);
+    }
+    
+    .work-grid, .connect-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style> 
