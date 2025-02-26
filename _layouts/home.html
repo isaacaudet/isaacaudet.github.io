@@ -2,115 +2,99 @@
 layout: default
 ---
 
-<div class="home">
-  <section class="hero">
-    <div class="hero-image">
-      <img src="{{ '/assets/images/gallery/28AB.jpg' | relative_url }}" alt="Featured image">
-    </div>
-    <div class="hero-content">
-      <h1 class="site-heading">{{ site.title }}</h1>
-      <p class="subtitle">{{ site.description }}</p>
-      <div class="hero-links">
-        <a href="{{ '/life/' | relative_url }}" class="hero-link">Life</a>
-        <a href="{{ '/work/' | relative_url }}" class="hero-link">Work</a>
-        <a href="{{ '/pics/' | relative_url }}" class="hero-link">Pics</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="recent-posts">
-    <h2>Recent Thoughts</h2>
-    <div class="post-grid">
-      {% for post in site.posts limit:3 %}
-        <article class="post-card">
-          <h3 class="post-title">
-            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-          </h3>
-          <div class="post-meta">
-            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
-          </div>
-          <div class="post-excerpt">
-            {{ post.excerpt | truncate: 120 }}
-          </div>
-          <a href="{{ post.url | relative_url }}" class="read-more">Read more →</a>
-        </article>
+<div class="home-content">
+  <div class="home-image">
+    <img src="{{ '/assets/images/28AB.jpg' | relative_url }}" alt="Featured image" class="featured-image">
+  </div>
+  
+  <div class="home-text">
+    <p>
+      welcome to my digital garden—a minimalist space for thoughts on life, work, and visual explorations.
+    </p>
+    
+    <p>
+      this site embraces simplicity in both form and function, using the iosevka monospace font throughout
+      to create a consistent reading experience.
+    </p>
+  </div>
+  
+  <div class="recent-posts">
+    <h2>recent writings</h2>
+    <ul class="post-list">
+      {% for post in site.posts limit:5 %}
+      <li class="post-item">
+        <span class="post-date">{{ post.date | date: "%Y-%m-%d" }}</span>
+        <a href="{{ post.url | relative_url }}" class="post-link">{{ post.title }}</a>
+      </li>
       {% endfor %}
-    </div>
-  </section>
+    </ul>
+  </div>
 </div>
 
 <style>
-  .hero {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 2rem 0 4rem;
-    text-align: center;
+  .home-content {
+    max-width: 42rem;
+    margin: 0 auto;
+    padding: 2rem 0;
   }
   
-  .hero-image {
-    width: 100%;
-    max-width: 800px;
+  .home-image {
     margin-bottom: 2rem;
   }
   
-  .hero-image img {
-    width: 100%;
+  .featured-image {
+    max-width: 100%;
     height: auto;
-    border-radius: 8px;
-    object-fit: cover;
   }
   
-  .hero-content {
-    max-width: 600px;
+  .home-text {
+    margin-bottom: 3rem;
+    font-size: 1.1rem;
+    line-height: 1.6;
   }
   
-  .site-heading {
-    margin-bottom: 1rem;
-  }
-  
-  .subtitle {
-    margin-bottom: 2rem;
-    color: var(--color-text-light);
-  }
-  
-  .post-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-gap: 2rem;
+  .recent-posts {
     margin-top: 2rem;
   }
   
-  .post-card {
-    padding: 1.5rem;
-    border-radius: 8px;
-    background-color: var(--color-accent-light);
-    transition: transform 0.3s ease;
-  }
-  
-  .post-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .post-card .post-title {
-    margin-top: 0;
-    font-size: 1.4rem;
-  }
-  
-  .post-card .post-meta {
+  h2 {
+    font-size: 1.2rem;
+    font-weight: normal;
     margin-bottom: 1rem;
-    font-size: 0.9rem;
+    font-family: 'Iosevka', monospace;
+  }
+  
+  .post-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .post-item {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .post-date {
     color: var(--color-text-light);
+    font-size: 0.9rem;
+    margin-right: 1rem;
   }
   
-  .post-card .post-excerpt {
-    margin-bottom: 1rem;
-    font-size: 0.95rem;
+  .post-link {
+    color: var(--color-text);
+    text-decoration: none;
   }
   
-  @media (max-width: 768px) {
-    .post-grid {
-      grid-template-columns: 1fr;
+  .post-link:hover {
+    text-decoration: underline;
+  }
+  
+  @media (min-width: 768px) {
+    .post-item {
+      flex-direction: row;
+      align-items: baseline;
     }
   }
 </style> 

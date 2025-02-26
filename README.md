@@ -1,23 +1,24 @@
 # Isaac Audet's Personal Website
 
-A minimalist personal website and blog built with Jekyll.
+A minimalist personal website inspired by gwern.net, built with Jekyll.
 
 ## Features
 
-- Clean, minimalist design focused on content
-- Responsive layout for all devices
-- Three main sections: Life, Work, and Pics
+- Ultra-minimal design focused on content
+- Single navigation bar with lowercase links
+- Three main sections: life, work, and pics
 - Dark mode support
-- Fast loading and optimized for SEO
+- Iosevka monospace font throughout
 
 ## Design Philosophy
 
-This site embraces minimalism with:
-- Lora for body text
-- Playfair Display for headings
+This site embraces extreme minimalism with:
+- Iosevka monospace font for all text
 - Limited color palette
 - Generous whitespace
 - Focus on typography and readability
+- No profile photos or unnecessary graphics
+- Lowercase navigation and headings
 
 ## Local Development
 

@@ -1,96 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
   <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
-  <meta name="author" content="{{ site.author }}">
+  <meta name="author" content="Isaac Audet">
   
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="{% if page.title %}article{% else %}website{% endif %}">
-  <meta property="og:url" content="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
-  <meta property="og:title" content="{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}">
-  <meta property="og:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
-  <meta property="og:image" content="{% if page.image %}{{ page.image | prepend: site.baseurl | prepend: site.url }}{% else %}{{ '/assets/images/default-post-image.jpg' | prepend: site.baseurl | prepend: site.url }}{% endif %}">
+  <title>{% if page.title %}{{ page.title }} | {% endif %}isaac audet</title>
   
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
-  <meta name="twitter:title" content="{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}">
-  <meta name="twitter:description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
-  <meta name="twitter:image" content="{% if page.image %}{{ page.image | prepend: site.baseurl | prepend: site.url }}{% else %}{{ '/assets/images/default-post-image.jpg' | prepend: site.baseurl | prepend: site.url }}{% endif %}">
-  
-  <!-- Canonical URL -->
-  <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
-  
-  <!-- Humans.txt -->
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+  <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
+  <link rel="apple-touch-icon" href="{{ '/assets/images/apple-touch-icon.png' | relative_url }}">
+  <link rel="icon" href="{{ '/favicon.ico' | relative_url }}" type="image/x-icon">
   <link rel="author" href="{{ '/humans.txt' | relative_url }}">
   
-  <!-- Stylesheets -->
-  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-  
-  <!-- Favicons -->
-  <link rel="icon" type="image/svg+xml" href="{{ '/assets/images/favicon.svg' | relative_url }}">
-  <link rel="icon" type="image/png" href="{{ '/assets/images/favicon.png' | relative_url }}">
-  <link rel="apple-touch-icon" href="{{ '/assets/images/apple-touch-icon.png' | relative_url }}">
-  
-  <!-- RSS Feed -->
-  <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ '/feed.xml' | prepend: site.baseurl | prepend: site.url }}">
-  
-  {% seo %}
-  <script>
-    // Check for saved theme preference or use system preference
-    const getTheme = () => {
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme) {
-        return savedTheme;
-      }
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    };
-
-    // Apply theme immediately to prevent flash
-    const theme = getTheme();
-    document.documentElement.setAttribute('data-theme', theme);
-  </script>
+  <!-- Iosevka font -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/iosevka@5.0.0/index.css">
 </head>
 <body>
-  <div class="progress-bar" id="progress-bar"></div>
-  
   <div class="container">
     <header class="site-header">
-      <div class="site-title">
-        <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
-      </div>
       <nav class="site-nav">
-        <a href="{{ '/life/' | relative_url }}" class="nav-link">Life</a>
-        <a href="{{ '/work/' | relative_url }}" class="nav-link">Work</a>
-        <a href="{{ '/pics/' | relative_url }}" class="nav-link">Pics</a>
-        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
-          <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="5"></circle>
-            <line x1="12" y1="1" x2="12" y2="3"></line>
-            <line x1="12" y1="21" x2="12" y2="23"></line>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-            <line x1="1" y1="12" x2="3" y2="12"></line>
-            <line x1="21" y1="12" x2="23" y2="12"></line>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-          </svg>
-          <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-          </svg>
-        </button>
+        <a href="{{ '/' | relative_url }}" class="site-title">isaac audet</a>
+        <div class="nav-links">
+          <a href="{{ '/life/' | relative_url }}" class="nav-link">life</a>
+          <a href="{{ '/work/' | relative_url }}" class="nav-link">work</a>
+          <a href="{{ '/pics/' | relative_url }}" class="nav-link">pics</a>
+        </div>
       </nav>
-      <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
     </header>
 
     <main class="site-content">
@@ -99,72 +36,25 @@
 
     <footer class="site-footer">
       <div class="footer-content">
-        <p>&copy; {{ site.time | date: '%Y' }} {{ site.author }}. All rights reserved.</p>
-        <div class="footer-social">
-          <a href="https://instagram.com/isaac_audet" target="_blank" aria-label="Instagram">Instagram</a>
-          <a href="https://tiktok.com/@isaacaude" target="_blank" aria-label="TikTok">TikTok</a>
-          <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+        <div class="footer-copyright">
+          &copy; {{ site.time | date: '%Y' }} isaac audet
         </div>
       </div>
     </footer>
   </div>
 
   <script>
-    // Theme toggle functionality
-    document.addEventListener('DOMContentLoaded', () => {
-      const themeToggle = document.getElementById('theme-toggle');
-      const menuToggle = document.getElementById('menu-toggle');
-      const siteNav = document.querySelector('.site-nav');
+    // Simple dark mode toggle
+    const theme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', theme);
+    
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
       
-      themeToggle.addEventListener('click', () => {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-        
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-      });
-      
-      // Mobile menu toggle
-      menuToggle.addEventListener('click', () => {
-        siteNav.classList.toggle('active');
-        menuToggle.classList.toggle('active');
-      });
-
-      // Progress bar for posts
-      const progressBar = document.getElementById('progress-bar');
-      if (progressBar) {
-        window.addEventListener('scroll', () => {
-          const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-          const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-          const scrolled = (winScroll / height) * 100;
-          progressBar.style.width = scrolled + '%';
-        });
-      }
-
-      // Add smooth reveal animations to elements as they come into view
-      const observeElements = () => {
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('visible');
-              observer.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('h2, h3, p, blockquote, pre, .post-item, img').forEach(el => {
-          if (!el.classList.contains('visible') && !el.classList.contains('no-reveal')) {
-            el.classList.add('reveal');
-            observer.observe(el);
-          }
-        });
-      };
-
-      // Initialize animations if supported
-      if ('IntersectionObserver' in window) {
-        observeElements();
-      }
-    });
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    }
   </script>
 </body>
 </html> 

@@ -1,15 +1,14 @@
 ---
 layout: default
-title: Pics
+title: pics
 permalink: /pics/
 ---
 
 <div class="container">
-  <h1>Pics</h1>
-  <p class="subtitle">A collection of moments captured through my lens.</p>
+  <h1>pics</h1>
   
   <div class="gallery">
-    <div class="gallery-item">
+    <div class="gallery-item featured">
       <img src="{{ '/assets/images/gallery/28AB.jpg' | relative_url }}" alt="Featured image">
     </div>
     <div class="gallery-item">
@@ -37,4 +36,39 @@ permalink: /pics/
       <img src="{{ '/assets/images/gallery/image8.jpg' | relative_url }}" alt="Gallery image 8">
     </div>
   </div>
-</div> 
+</div>
+
+<style>
+  h1 {
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+    font-weight: normal;
+  }
+  
+  .gallery {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  .gallery-item img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  .gallery-item.featured {
+    margin-bottom: 1rem;
+  }
+  
+  @media (min-width: 768px) {
+    .gallery {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .gallery-item.featured {
+      grid-column: 1 / -1;
+    }
+  }
+</style> 
