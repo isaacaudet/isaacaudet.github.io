@@ -4,91 +4,39 @@ title: Tags
 permalink: /tags/
 ---
 
-<div class="tags-page">
-  <h1>Tags</h1>
+<div class="page">
+  <h1 class="page-title">Tags</h1>
   
-  <div class="tag-cloud">
-    {% assign tags = site.tags | sort %}
-    {% for tag in tags %}
-      <a href="#{{ tag[0] | slugize }}" class="tag-cloud-item" style="font-size: calc(0.8rem + {{ tag[1].size | times: 0.05 }}rem);">
-        {{ tag[0] }}
-        <span class="tag-count">{{ tag[1].size }}</span>
+  <div class="tags-cloud">
+    {% assign sorted_tags = site.tags | sort %}
+    {% for tag in sorted_tags %}
+      {% assign tag_name = tag | first %}
+      {% assign posts = tag | last %}
+      {% assign tag_size = posts.size | times: 0.1 | plus: 0.8 %}
+      <a href="#{{ tag_name | slugify }}" class="tag-link tag-size-{{ posts.size }}">
+        {{ tag_name }} <span class="tag-count">({{ posts.size }})</span>
       </a>
     {% endfor %}
   </div>
-  
-  <div class="tag-sections">
-    {% for tag in tags %}
-      <div class="tag-section" id="{{ tag[0] | slugize }}">
-        <h2>{{ tag[0] }}</h2>
-        <ul class="post-list">
-          {% for post in tag[1] %}
-            <li class="post-item">
-              <span class="post-date">{{ post.date | date: "%b %-d, %Y" }}</span>
-              <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title }}</a>
+
+  <div class="tags-list">
+    {% for tag in sorted_tags %}
+      {% assign tag_name = tag | first %}
+      {% assign posts = tag | last %}
+      <div class="tag-group">
+        <h2 id="{{ tag_name | slugify }}" class="tag-title">{{ tag_name }}</h2>
+        <ul class="tag-posts">
+          {% for post in posts %}
+            <li class="tag-post">
+              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+              <span class="post-date">{{ post.date | date: "%B %d, %Y" }}</span>
+              {% if post.abstract %}
+                <div class="post-abstract">{{ post.abstract | truncatewords: 30 }}</div>
+              {% endif %}
             </li>
           {% endfor %}
         </ul>
       </div>
     {% endfor %}
   </div>
-</div>
-
-<style>
-  .tag-cloud {
-    margin: var(--spacing-md) 0 var(--spacing-lg);
-    text-align: center;
-    animation: fadeIn 1s ease-out;
-  }
-  
-  .tag-cloud-item {
-    display: inline-block;
-    margin: 0.3rem;
-    padding: 0.3rem 0.6rem;
-    background-color: var(--color-accent-light);
-    border-radius: 3px;
-    color: var(--color-accent);
-    transition: all var(--transition-speed) ease;
-    border-bottom: none;
-  }
-  
-  .tag-cloud-item:hover {
-    background-color: var(--color-accent);
-    color: white;
-    transform: translateY(-2px);
-    border-bottom: none;
-  }
-  
-  .tag-count {
-    font-size: 0.7em;
-    background-color: rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    padding: 0.1em 0.5em;
-    margin-left: 0.3em;
-  }
-  
-  .tag-section h2 {
-    margin-top: var(--spacing-lg);
-    border-bottom: 1px solid var(--color-border);
-    padding-bottom: var(--spacing-xs);
-    animation: fadeInUp 0.6s ease-out;
-  }
-  
-  .post-list {
-    list-style: none;
-    margin-left: 0;
-    animation: fadeInUp 0.8s ease-out;
-  }
-  
-  .post-item {
-    margin-bottom: var(--spacing-sm);
-    display: flex;
-  }
-  
-  .post-date {
-    color: var(--color-text-light);
-    font-family: var(--font-sans);
-    font-size: 0.9rem;
-    min-width: 8rem;
-  }
-</style> 
+</div> 

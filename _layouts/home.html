@@ -1,100 +1,55 @@
 ---
 layout: default
 ---
-
-<div class="home-content">
-  <div class="home-text">
-    <h1>welcome to my digital garden</h1>
-    
-    <p class="intro-text">
-      a minimalist space for thoughts on life, work, and visual explorations.
-      this site embraces simplicity in both form and function, using the iosevka monospace font throughout
-      to create a consistent reading experience.
-    </p>
+<div class="home">
+  <div class="intro">
+    <h1>{{ site.title }}</h1>
+    <p class="subtitle">{{ site.description }}</p>
   </div>
-  
-  <div class="recent-posts">
-    <h2>recent writings</h2>
-    <ul class="post-list">
-      {% for post in site.posts limit:5 %}
-      <li class="post-item">
-        <span class="post-date">{{ post.date | date: "%Y-%m-%d" }}</span>
-        <a href="{{ post.url | relative_url }}" class="post-link">{{ post.title }}</a>
-      </li>
-      {% endfor %}
-    </ul>
-  </div>
-</div>
 
-<style>
-  .home-content {
-    max-width: var(--container-width);
-    margin: 0 auto;
-    padding: 3rem 0;
-  }
-  
-  .home-text {
-    margin-bottom: 4rem;
-  }
-  
-  .home-text h1 {
-    font-size: 2.2rem;
-    margin-bottom: 1.5rem;
-    line-height: 1.2;
-  }
-  
-  .intro-text {
-    font-size: 1.2rem;
-    line-height: 1.7;
-    max-width: 40rem;
-  }
-  
-  .recent-posts {
-    margin-top: 3rem;
-  }
-  
-  .recent-posts h2 {
-    font-size: 1.6rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  .post-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .post-item {
-    margin-bottom: 1.2rem;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .post-date {
-    color: var(--color-text-light);
-    font-size: 1rem;
-    margin-right: 1.5rem;
-    font-weight: bold;
-  }
-  
-  .post-link {
-    color: var(--color-accent);
-    text-decoration: none;
-    font-size: 1.1rem;
-  }
-  
-  .post-link:hover {
-    text-decoration: underline;
-  }
-  
-  @media (min-width: 768px) {
-    .post-item {
-      flex-direction: row;
-      align-items: baseline;
-    }
-    
-    .post-date {
-      min-width: 7rem;
-    }
-  }
-</style> 
+  <div class="posts">
+    {% for post in paginator.posts %}
+    <article class="post-item">
+      <h2 class="post-title">
+        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+      </h2>
+      <div class="post-meta">
+        <time datetime="{{ post.date | date_to_xmlschema }}">
+          {{ post.date | date: "%B %-d, %Y" }}
+        </time>
+      </div>
+      <div class="post-excerpt">
+        {{ post.excerpt }}
+        <a href="{{ post.url | relative_url }}" class="read-more">Read more &raquo;</a>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+
+  <!-- Pagination links -->
+  {% if paginator.total_pages > 1 %}
+  <div class="pagination">
+    {% if paginator.previous_page %}
+      <a href="{{ paginator.previous_page_path | relative_url }}" class="previous">&laquo; Previous</a>
+    {% else %}
+      <span class="previous">&laquo; Previous</span>
+    {% endif %}
+
+    {% for page in (1..paginator.total_pages) %}
+      {% if page == paginator.page %}
+        <span class="page-number current">{{ page }}</span>
+      {% elsif page == 1 %}
+        <a href="{{ '/' | relative_url }}" class="page-number">{{ page }}</a>
+      {% else %}
+        <a href="{{ site.paginate_path | relative_url | replace: ':num', page }}" class="page-number">{{ page }}</a>
+      {% endif %}
+    {% endfor %}
+
+    {% if paginator.next_page %}
+      <a href="{{ paginator.next_page_path | relative_url }}" class="next">Next &raquo;</a>
+    {% else %}
+      <span class="next">Next &raquo;</span>
+    {% endif %}
+  </div>
+  {% endif %}
+</div> 

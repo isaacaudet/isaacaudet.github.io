@@ -1,0 +1,107 @@
+---
+layout: default
+title: Search
+permalink: /search/
+---
+
+<div class="page">
+  <h1 class="page-title">Search</h1>
+  
+  <div class="search-container">
+    <input type="text" id="search-input" class="search-input" placeholder="Search blog posts..." aria-label="Search blog posts">
+    <div id="search-results" class="search-results"></div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Fetch all posts data
+    fetch('/search-data.json')
+      .then(response => response.json())
+      .then(data => {
+        const searchInput = document.getElementById('search-input');
+        const searchResults = document.getElementById('search-results');
+        
+        // Function to perform search
+        function performSearch() {
+          const query = searchInput.value.toLowerCase();
+          
+          // Clear results if query is empty
+          if (!query) {
+            searchResults.innerHTML = '';
+            return;
+          }
+          
+          // Filter posts based on query
+          const results = data.filter(post => {
+            return post.title.toLowerCase().includes(query) || 
+                  post.content.toLowerCase().includes(query) ||
+                  (post.tags && post.tags.some(tag => tag.toLowerCase().includes(query)));
+          });
+          
+          // Display results
+          if (results.length === 0) {
+            searchResults.innerHTML = '<p class="no-results">No results found</p>';
+          } else {
+            let resultsHTML = '<ul class="results-list">';
+            
+            results.forEach(post => {
+              let snippet = '';
+              
+              // Try to find a snippet containing the query
+              if (post.content.toLowerCase().includes(query)) {
+                const index = post.content.toLowerCase().indexOf(query);
+                const start = Math.max(0, index - 50);
+                const end = Math.min(post.content.length, index + query.length + 50);
+                snippet = post.content.substring(start, end);
+                
+                // Add ellipsis if needed
+                if (start > 0) snippet = '...' + snippet;
+                if (end < post.content.length) snippet = snippet + '...';
+                
+                // Highlight the query
+                snippet = snippet.replace(new RegExp(query, 'gi'), match => `<mark>${match}</mark>`);
+              }
+              
+              resultsHTML += `
+                <li class="result-item">
+                  <a href="${post.url}" class="result-title">${post.title}</a>
+                  <span class="result-date">${post.date}</span>
+                  ${snippet ? `<p class="result-snippet">${snippet}</p>` : ''}
+                  ${post.tags ? `
+                    <div class="result-tags">
+                      ${post.tags.map(tag => `<span class="result-tag">${tag}</span>`).join('')}
+                    </div>
+                  ` : ''}
+                </li>
+              `;
+            });
+            
+            resultsHTML += '</ul>';
+            searchResults.innerHTML = resultsHTML;
+          }
+        }
+        
+        // Add event listeners
+        searchInput.addEventListener('input', performSearch);
+        searchInput.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter') {
+            performSearch();
+          }
+        });
+        
+        // Check for URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const queryParam = urlParams.get('q');
+        if (queryParam) {
+          searchInput.value = queryParam;
+          performSearch();
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching search data:', error);
+        document.getElementById('search-results').innerHTML = 
+          '<p class="error">Error loading search data. Please try again later.</p>';
+      });
+  });
+</script> 

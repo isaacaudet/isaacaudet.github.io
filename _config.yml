@@ -1,62 +1,27 @@
 title: Isaac Audet
-description: Personal blog and portfolio
+description: Thoughts on AI and more
+url: https://isaacaudet.github.io
 baseurl: ""
-url: "https://isaacaudet.com"
 author: Isaac Audet
-email: contact@isaacaudet.com
-instagram_username: isaac_audet
-tiktok_username: isaacaude
 
 # Build settings
 markdown: kramdown
-permalink: /:title/
+permalink: /:year/:month/:day/:title/
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
-  - jekyll-sitemap
+  - jekyll-paginate
 
-# SEO settings
-twitter:
-  username: isaac_audet
-  card: summary_large_image
-logo: /assets/images/logo.png
-social:
-  name: Isaac Audet
-  links:
-    - https://instagram.com/isaac_audet
-    - https://tiktok.com/@isaacaude
-
-# Collections
-collections:
-  projects:
-    output: true
-    permalink: /work/:path/
+# Pagination
+paginate: 5
+paginate_path: "/page:num/"
 
 # Defaults
 defaults:
-  - scope:
+  -
+    scope:
       path: ""
       type: "posts"
     values:
       layout: "post"
-      author: "Isaac Audet"
-  - scope:
-      path: ""
-      type: "projects"
-    values:
-      layout: "project"
-  - scope:
-      path: ""
-    values:
-      layout: "default"
-
-# Exclude from processing
-exclude:
-  - Gemfile
-  - Gemfile.lock
-  - node_modules
-  - vendor
-  - .sass-cache
-  - .jekyll-cache
-  - .git
-  - .gitignore 
+      author: "Isaac Audet" 

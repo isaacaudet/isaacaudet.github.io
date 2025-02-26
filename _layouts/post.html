@@ -4,123 +4,131 @@ layout: default
 
 <article class="post">
   <header class="post-header">
-    <h1 class="post-title">{{ page.title }}</h1>
-    <div class="post-meta">
-      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d" }}</time>
-      {% if page.categories.size > 0 %}
-      <span class="post-categories">
-        in 
-        {% for category in page.categories %}
-        <a href="{{ '/life/' | relative_url }}#{{ category | slugify }}">{{ category }}</a>{% unless forloop.last %}, {% endunless %}
+    <h1>{{ page.title }}</h1>
+    
+    {% if page.subtitle %}
+    <p class="subtitle">{{ page.subtitle }}</p>
+    {% endif %}
+    
+    <div class="metadata">
+      {% if page.date %}
+      <p><strong>Date:</strong> {{ page.date | date: "%Y-%m-%d" }}{% if page.last_modified_at %}&ndash;{{ page.last_modified_at | date: "%Y-%m-%d" }}{% endif %}</p>
+      {% endif %}
+      
+      {% if page.status %}
+      <p><strong>Status:</strong> {{ page.status }}</p>
+      {% endif %}
+      
+      {% if page.confidence %}
+      <p><strong>Confidence:</strong> {{ page.confidence }}</p>
+      {% endif %}
+      
+      {% if page.importance %}
+      <p><strong>Importance:</strong> {{ page.importance }}</p>
+      {% endif %}
+      
+      {% if page.tags %}
+      <p><strong>Tags:</strong> 
+        {% for tag in page.tags %}
+        <a href="{{ site.baseurl }}/tags/#{{ tag | slugify }}" class="post-tag">{{ tag }}</a>
         {% endfor %}
-      </span>
+      </p>
       {% endif %}
     </div>
+    
+    {% if page.abstract %}
+    <div class="abstract">
+      {{ page.abstract | markdownify }}
+    </div>
+    {% endif %}
+    
+    {% if page.toc %}
+    <div class="toc">
+      <div class="toc-title">Table of Contents</div>
+      {% include toc.html html=content %}
+    </div>
+    {% endif %}
   </header>
 
-  <div class="post-content">
+  <div class="post-content dropcap">
     {{ content }}
   </div>
 
-  {% if page.tags.size > 0 %}
-  <footer class="post-footer">
-    <div class="post-tags">
-      <span>tags:</span>
-      {% for tag in page.tags %}
-      <a href="{{ '/tags/' | relative_url }}#{{ tag | slugify }}">{{ tag }}</a>{% unless forloop.last %}, {% endunless %}
-      {% endfor %}
+  {% if page.backlinks %}
+  <div class="collapse">
+    <div class="collapse-header">Backlinks</div>
+    <div class="collapse-content">
+      <ul>
+        {% for backlink in page.backlinks %}
+        <li>
+          <a href="{{ backlink.url }}">{{ backlink.title }}</a>
+          {% if backlink.context %}
+          <div class="backlink-context">{{ backlink.context }}</div>
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
     </div>
-  </footer>
+  </div>
   {% endif %}
+  
+  {% if page.similar_links %}
+  <div class="collapse">
+    <div class="collapse-header">Similar Links</div>
+    <div class="collapse-content">
+      <ul>
+        {% for link in page.similar_links %}
+        <li>
+          <a href="{{ link.url }}">{{ link.title }}</a>
+          {% if link.description %}
+          <div>{{ link.description }}</div>
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+  
+  {% if page.bibliography %}
+  <div class="collapse">
+    <div class="collapse-header">Bibliography</div>
+    <div class="collapse-content">
+      <ul>
+        {% for item in page.bibliography %}
+        <li>
+          {% if item.url %}
+          <a href="{{ item.url }}" {% if item.popup_id %}data-popup="{{ item.popup_id }}"{% endif %}>{{ item.title }}</a>
+          {% else %}
+          {{ item.title }}
+          {% endif %}
+          {% if item.author %}
+          by {{ item.author }}
+          {% endif %}
+          {% if item.year %}
+          ({{ item.year }})
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% endif %}
+  
+  <div class="post-navigation">
+    {% if page.previous.url %}
+    <a class="prev" href="{{ page.previous.url | relative_url }}">&laquo; {{ page.previous.title }}</a>
+    {% endif %}
+    {% if page.next.url %}
+    <a class="next" href="{{ page.next.url | relative_url }}">{{ page.next.title }} &raquo;</a>
+    {% endif %}
+  </div>
 </article>
 
-<style>
-  .post {
-    max-width: var(--container-width);
-    margin: 0 auto;
-    padding: 2rem 0;
-  }
-  
-  .post-header {
-    margin-bottom: 3rem;
-  }
-  
-  .post-title {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    line-height: 1.2;
-  }
-  
-  .post-meta {
-    color: var(--color-text-light);
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    font-weight: bold;
-  }
-  
-  .post-categories {
-    margin-left: 0.5rem;
-  }
-  
-  .post-categories a {
-    color: var(--color-accent);
-  }
-  
-  .post-content {
-    font-size: 1.1rem;
-    line-height: 1.8;
-  }
-  
-  .post-content p {
-    margin-bottom: 1.8rem;
-  }
-  
-  .post-content h2 {
-    font-size: 1.6rem;
-    font-weight: bold;
-    margin-top: 3rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  .post-content h3 {
-    font-size: 1.3rem;
-    font-weight: bold;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-  }
-  
-  .post-content ul, .post-content ol {
-    margin-bottom: 1.8rem;
-    padding-left: 1.8rem;
-  }
-  
-  .post-content blockquote {
-    border-left: 3px solid var(--color-accent);
-    padding-left: 1.5rem;
-    margin-left: 0;
-    margin-right: 0;
-    font-style: italic;
-    font-size: 1.1rem;
-  }
-  
-  .post-footer {
-    margin-top: 4rem;
-    padding-top: 1.5rem;
-    border-top: 2px solid var(--color-border);
-  }
-  
-  .post-tags {
-    font-size: 1rem;
-  }
-  
-  .post-tags a {
-    color: var(--color-accent);
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  .post-tags a:hover {
-    text-decoration: underline;
-  }
-</style> 
+{% for popup in page.popups %}
+<div id="{{ popup.id }}" style="display: none;">
+  <h3>{{ popup.title }}</h3>
+  {{ popup.content | markdownify }}
+</div>
+{% endfor %} 
+</article> 
