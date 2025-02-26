@@ -4,7 +4,21 @@ This is the source code for my personal blog at [isaacaudet.com](https://isaacau
 
 ## Overview
 
-This blog is built with [Jekyll](https://jekyllrb.com/), a static site generator, and hosted on [GitHub Pages](https://pages.github.com/).
+This blog is built with [Jekyll](https://jekyllrb.com/), a static site generator, and hosted on [GitHub Pages](https://pages.github.com/). It features a clean, elegant design with a focus on typography and readability, inspired by sites like Gwern.net.
+
+## Features
+
+- **Elegant Typography**: Carefully crafted typography using Inter, Merriweather, and JetBrains Mono fonts
+- **Dark Mode**: Automatic dark mode based on system preferences with manual toggle
+- **Responsive Design**: Looks great on all devices from mobile to desktop
+- **Reading Progress Bar**: Visual indicator of reading progress
+- **Table of Contents**: Automatically generated for posts
+- **Sidenotes**: Support for sidenotes in posts (similar to footnotes but visible inline)
+- **Reading Time Estimate**: Automatically calculated based on word count
+- **Social Sharing**: Easy sharing of posts to Twitter, LinkedIn, and via email
+- **Categories & Tags**: Organized content with category and tag pages
+- **Animations**: Subtle animations for a more engaging experience
+- **SEO Optimized**: Built-in SEO tag support
 
 ## Local Development
 
@@ -56,6 +70,25 @@ tags: [tag1, tag2, tag3]
 
 Then write your post content in Markdown format.
 
+### Special Features
+
+#### Table of Contents
+
+The table of contents is automatically generated for all posts. If you want to disable it for a specific post, add `toc: false` to the front matter.
+
+#### Sidenotes
+
+To add a sidenote to your post, use the following HTML:
+
+```html
+<div class="sidenote-wrapper">
+  <span class="sidenote-ref">1</span>
+  <div class="sidenote">
+    This is a sidenote that will appear to the side on desktop and inline on mobile.
+  </div>
+</div>
+```
+
 ## Deployment
 
 This site is automatically deployed to GitHub Pages when changes are pushed to the main branch.
@@ -81,6 +114,7 @@ To use a custom domain like isaacaudet.com:
 - Edit `_config.yml` to change site settings
 - Modify files in `_layouts` to change the site structure
 - Update CSS in `assets/css/main.css` to change the site appearance
+- Add new pages by creating Markdown or HTML files in the root directory
 
 ## License
 

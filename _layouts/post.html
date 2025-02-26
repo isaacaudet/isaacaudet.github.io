@@ -16,11 +16,53 @@ layout: default
         {% endfor %}
       </span>
       {% endif %}
+      <span class="reading-time" title="Estimated reading time">
+        {% assign words = content | number_of_words %}
+        {% if words < 360 %}
+          1 min read
+        {% else %}
+          {{ words | divided_by: 180 }} min read
+        {% endif %}
+      </span>
     </div>
   </header>
 
+  {% if page.toc != false %}
+  <div class="table-of-contents">
+    <h4>Table of Contents</h4>
+    <ul>
+      {% assign headers = content | split: '<h2' %}
+      {% for header in headers %}
+        {% if forloop.first == false %}
+          {% assign header_content = header | split: '</h2>' | first %}
+          {% assign header_text = header_content | split: '>' | last | strip_html | strip %}
+          <li>
+            <a href="#{{ header_text | slugify }}">{{ header_text }}</a>
+            
+            {% assign subheaders_check = header | split: '<h3' %}
+            {% if subheaders_check.size > 1 %}
+              <ul>
+                {% assign subheaders = header | split: '<h3' %}
+                {% for subheader in subheaders %}
+                  {% if forloop.first == false %}
+                    {% assign subheader_content = subheader | split: '</h3>' | first %}
+                    {% assign subheader_text = subheader_content | split: '>' | last | strip_html | strip %}
+                    <li>
+                      <a href="#{{ subheader_text | slugify }}">{{ subheader_text }}</a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
   <div class="post-content">
-    {{ content }}
+    {{ content | replace: '<h2', '<h2 id="%title%"' | replace: '<h3', '<h3 id="%title%"' | replace: '%title%', '' }}
   </div>
 
   {% if page.tags.size > 0 %}
@@ -32,9 +74,29 @@ layout: default
   </div>
   {% endif %}
 
+  <div class="share-post">
+    <h3>Share this post</h3>
+    <div class="share-buttons">
+      <a href="https://twitter.com/intent/tweet?text={{ page.title | url_encode }}&url={{ site.url }}{{ page.url }}" target="_blank" rel="noopener noreferrer" class="share-button twitter">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg>
+        Twitter
+      </a>
+      <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ site.url }}{{ page.url }}&title={{ page.title | url_encode }}" target="_blank" rel="noopener noreferrer" class="share-button linkedin">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+        LinkedIn
+      </a>
+      <a href="mailto:?subject={{ page.title | url_encode }}&body=Check out this post: {{ site.url }}{{ page.url }}" class="share-button email">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        Email
+      </a>
+    </div>
+  </div>
+
   <div class="post-navigation">
     {% if page.previous.url %}
     <a class="prev" href="{{ page.previous.url | relative_url }}">&laquo; {{ page.previous.title }}</a>
+    {% else %}
+    <span></span>
     {% endif %}
     {% if page.next.url %}
     <a class="next" href="{{ page.next.url | relative_url }}">{{ page.next.title }} &raquo;</a>
