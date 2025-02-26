@@ -3,16 +3,11 @@ layout: default
 ---
 
 <div class="home-content">
-  <div class="home-image">
-    <img src="{{ '/assets/images/28AB.jpg' | relative_url }}" alt="Featured image" class="featured-image">
-  </div>
-  
   <div class="home-text">
-    <p>
-      welcome to my digital garden—a minimalist space for thoughts on life, work, and visual explorations.
-    </p>
+    <h1>welcome to my digital garden</h1>
     
-    <p>
+    <p class="intro-text">
+      a minimalist space for thoughts on life, work, and visual explorations.
       this site embraces simplicity in both form and function, using the iosevka monospace font throughout
       to create a consistent reading experience.
     </p>
@@ -33,35 +28,34 @@ layout: default
 
 <style>
   .home-content {
-    max-width: 42rem;
+    max-width: var(--container-width);
     margin: 0 auto;
-    padding: 2rem 0;
-  }
-  
-  .home-image {
-    margin-bottom: 2rem;
-  }
-  
-  .featured-image {
-    max-width: 100%;
-    height: auto;
+    padding: 3rem 0;
   }
   
   .home-text {
-    margin-bottom: 3rem;
-    font-size: 1.1rem;
-    line-height: 1.6;
+    margin-bottom: 4rem;
+  }
+  
+  .home-text h1 {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+  
+  .intro-text {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    max-width: 40rem;
   }
   
   .recent-posts {
-    margin-top: 2rem;
+    margin-top: 3rem;
   }
   
-  h2 {
-    font-size: 1.2rem;
-    font-weight: normal;
-    margin-bottom: 1rem;
-    font-family: 'Iosevka', monospace;
+  .recent-posts h2 {
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
   }
   
   .post-list {
@@ -71,20 +65,22 @@ layout: default
   }
   
   .post-item {
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
     display: flex;
     flex-direction: column;
   }
   
   .post-date {
     color: var(--color-text-light);
-    font-size: 0.9rem;
-    margin-right: 1rem;
+    font-size: 1rem;
+    margin-right: 1.5rem;
+    font-weight: bold;
   }
   
   .post-link {
-    color: var(--color-text);
+    color: var(--color-accent);
     text-decoration: none;
+    font-size: 1.1rem;
   }
   
   .post-link:hover {
@@ -95,6 +91,10 @@ layout: default
     .post-item {
       flex-direction: row;
       align-items: baseline;
+    }
+    
+    .post-date {
+      min-width: 7rem;
     }
   }
 </style> 

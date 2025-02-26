@@ -30,16 +30,15 @@ permalink: /work/
 
 <style>
   .work-content {
-    max-width: 42rem;
+    max-width: var(--container-width);
     margin: 0 auto;
     padding: 2rem 0;
   }
   
   h1 {
-    margin-bottom: 2rem;
-    font-size: 1.5rem;
-    font-weight: normal;
-    font-family: 'Iosevka', monospace;
+    margin-bottom: 2.5rem;
+    font-size: 2rem;
+    font-weight: bold;
   }
   
   .projects {
@@ -47,9 +46,9 @@ permalink: /work/
   }
   
   .project {
-    margin-bottom: 2rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 2px solid var(--color-border);
   }
   
   .project:last-child {
@@ -58,24 +57,29 @@ permalink: /work/
   }
   
   .project h2 {
-    font-size: 1.2rem;
-    font-weight: normal;
-    margin-bottom: 0.5rem;
-    font-family: 'Iosevka', monospace;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
   }
   
   .project p {
-    margin-bottom: 1rem;
-    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+    font-size: 1.1rem;
   }
   
   .project-link {
+    display: inline-block;
     text-decoration: none;
-    color: var(--color-text);
-    font-size: 0.9rem;
+    color: var(--color-accent);
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 0.5rem 0;
+    transition: transform 0.2s ease;
   }
   
   .project-link:hover {
     text-decoration: underline;
+    transform: translateX(5px);
   }
 </style> 

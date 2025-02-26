@@ -4,11 +4,11 @@ title: pics
 permalink: /pics/
 ---
 
-<div class="container">
+<div class="pics-content">
   <h1>pics</h1>
   
   <div class="gallery">
-    <div class="gallery-item featured">
+    <div class="gallery-item">
       <img src="{{ '/assets/images/gallery/28AB.jpg' | relative_url }}" alt="Featured image">
     </div>
     <div class="gallery-item">
@@ -39,36 +39,50 @@ permalink: /pics/
 </div>
 
 <style>
+  .pics-content {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 2rem 0;
+  }
+  
   h1 {
-    margin-bottom: 2rem;
-    font-size: 1.5rem;
-    font-weight: normal;
+    margin-bottom: 2.5rem;
+    font-size: 2rem;
+    font-weight: bold;
   }
   
   .gallery {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 2.5rem;
     margin-bottom: 3rem;
+  }
+  
+  .gallery-item {
+    transition: transform 0.3s ease;
+  }
+  
+  .gallery-item:hover {
+    transform: scale(1.02);
   }
   
   .gallery-item img {
     width: 100%;
     height: auto;
     display: block;
-  }
-  
-  .gallery-item.featured {
-    margin-bottom: 1rem;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
   
   @media (min-width: 768px) {
     .gallery {
       grid-template-columns: repeat(2, 1fr);
     }
-    
-    .gallery-item.featured {
-      grid-column: 1 / -1;
+  }
+  
+  @media (min-width: 1024px) {
+    .gallery {
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 </style> 

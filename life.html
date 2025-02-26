@@ -21,16 +21,15 @@ permalink: /life/
 
 <style>
   .life-content {
-    max-width: 42rem;
+    max-width: var(--container-width);
     margin: 0 auto;
     padding: 2rem 0;
   }
   
   h1 {
-    margin-bottom: 2rem;
-    font-size: 1.5rem;
-    font-weight: normal;
-    font-family: 'Iosevka', monospace;
+    margin-bottom: 2.5rem;
+    font-size: 2rem;
+    font-weight: bold;
   }
   
   .post-list {
@@ -38,20 +37,29 @@ permalink: /life/
   }
   
   .post-item {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     display: flex;
     flex-direction: column;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+  
+  .post-item:last-child {
+    border-bottom: none;
   }
   
   .post-date {
     color: var(--color-text-light);
-    font-size: 0.9rem;
-    margin-right: 1rem;
+    font-size: 1rem;
+    margin-right: 1.5rem;
+    font-weight: bold;
   }
   
   .post-link {
+    color: var(--color-accent);
     text-decoration: none;
-    color: var(--color-text);
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
   }
   
   .post-link:hover {
@@ -62,10 +70,15 @@ permalink: /life/
     .post-item {
       flex-direction: row;
       align-items: baseline;
+      padding-bottom: 1.5rem;
     }
     
     .post-date {
-      min-width: 6.5rem;
+      min-width: 7rem;
+    }
+    
+    .post-link {
+      margin-top: 0;
     }
   }
 </style> 

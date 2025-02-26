@@ -4,21 +4,25 @@ A minimalist personal website inspired by gwern.net, built with Jekyll.
 
 ## Features
 
-- Ultra-minimal design focused on content
-- Single navigation bar with lowercase links
+- Bold, minimalist design focused on content
+- Sticky navigation bar with larger, more persistent tabs
+- Decorative "I" image as a home button (similar to gwern.net)
 - Three main sections: life, work, and pics
-- Dark mode support
+- Light/dark mode toggle
+- Smooth page transitions
 - Iosevka monospace font throughout
+- Responsive design for all devices
 
 ## Design Philosophy
 
-This site embraces extreme minimalism with:
+This site embraces bold minimalism with:
 - Iosevka monospace font for all text
-- Limited color palette
+- Enhanced color palette for better contrast
 - Generous whitespace
 - Focus on typography and readability
-- No profile photos or unnecessary graphics
-- Lowercase navigation and headings
+- Smooth transitions between pages
+- Larger, more persistent navigation
+- Decorative initial as a home button
 
 ## Local Development
 
