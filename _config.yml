@@ -1,8 +1,27 @@
 title: Isaac Audet
-description: Thoughts on AI and more
-url: https://isaacaudet.github.io
+description: AI researcher, writer, and digital creator exploring the intersection of technology and humanity
+url: https://isaacaudet.com
 baseurl: ""
 author: Isaac Audet
+email: contact@isaacaudet.com
+
+# Social media
+social:
+  instagram: isaac_audet
+  tiktok: isaacaude
+  github: isaacaudet
+
+# SEO settings
+twitter:
+  username: isaac_audet
+  card: summary_large_image
+logo: /assets/images/logo.png
+social:
+  name: Isaac Audet
+  links:
+    - https://instagram.com/isaac_audet
+    - https://tiktok.com/@isaacaude
+    - https://github.com/isaacaudet
 
 # Build settings
 markdown: kramdown
@@ -11,6 +30,7 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-paginate
+  - jekyll-sitemap
 
 # Pagination
 paginate: 5
@@ -24,4 +44,5 @@ defaults:
       type: "posts"
     values:
       layout: "post"
-      author: "Isaac Audet" 
+      author: "Isaac Audet"
+      image: /assets/images/default-post-image.jpg 
