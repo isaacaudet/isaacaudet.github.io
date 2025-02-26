@@ -2,7 +2,7 @@
 layout: post
 title: "The Evolution of AI Assistants: From Command Line to Conversation"
 date: 2023-03-15 15:45:00 -0500
-categories: [ai, technology]
+categories: [technology, ai, life]
 tags: [artificial intelligence, language models, human-computer interaction, future]
 ---
 

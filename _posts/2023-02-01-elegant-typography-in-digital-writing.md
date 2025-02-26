@@ -2,8 +2,8 @@
 layout: post
 title: "The Art of Elegant Typography in Digital Writing"
 date: 2023-02-01 09:30:00 -0500
-categories: [design, writing]
-tags: [typography, readability, aesthetics, digital-design]
+categories: [design, typography, life]
+tags: [typography, design, readability, web design]
 ---
 
 Typography is the art and technique of arranging type to make written language legible, readable, and appealing when displayed. In the digital age, typography has become more important than ever, as we consume vast amounts of text on screens of all sizes.

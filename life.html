@@ -1,0 +1,37 @@
+---
+layout: default
+title: Life
+permalink: /life/
+---
+
+<div class="container">
+  <h1>Life</h1>
+  <p class="subtitle">Thoughts, ideas, and personal reflections.</p>
+  
+  <div class="post-list">
+    {% for post in site.posts %}
+      {% if post.categories contains 'life' %}
+        <article class="post-item">
+          <h2 class="post-title">
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          </h2>
+          <div class="post-meta">
+            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
+            {% if post.categories.size > 0 %}
+              <span class="post-categories">
+                {% for category in post.categories %}
+                  <a href="{{ '/categories/' | relative_url }}#{{ category | slugify }}">{{ category }}</a>{% unless forloop.last %}, {% endunless %}
+                {% endfor %}
+              </span>
+            {% endif %}
+            <span class="reading-time">{{ post.content | number_of_words | divided_by: 200 | plus: 1 }} min read</span>
+          </div>
+          <div class="post-excerpt">
+            {{ post.excerpt }}
+          </div>
+          <a href="{{ post.url | relative_url }}" class="read-more">Read more →</a>
+        </article>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div> 

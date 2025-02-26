@@ -31,7 +31,7 @@
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=JetBrains+Mono:wght@400;700&family=Merriweather:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
   
   <!-- Favicons -->
   <link rel="icon" type="image/svg+xml" href="{{ '/assets/images/favicon.svg' | relative_url }}">
@@ -63,18 +63,12 @@
   <div class="container">
     <header class="site-header">
       <div class="site-title">
-        <a href="{{ '/' | relative_url }}">
-          <span class="site-logo">I</span>
-          <span class="site-name">{{ site.title }}</span>
-        </a>
+        <a href="{{ '/' | relative_url }}">{{ site.title }}</a>
       </div>
       <nav class="site-nav">
-        <a href="{{ '/' | relative_url }}" class="nav-link">Home</a>
-        <a href="{{ '/about/' | relative_url }}" class="nav-link">About</a>
+        <a href="{{ '/life/' | relative_url }}" class="nav-link">Life</a>
         <a href="{{ '/work/' | relative_url }}" class="nav-link">Work</a>
-        <a href="{{ '/thoughts/' | relative_url }}" class="nav-link">Thoughts</a>
-        <a href="{{ '/pictures/' | relative_url }}" class="nav-link">Pictures</a>
-        <a href="{{ '/archive/' | relative_url }}" class="nav-link">Archive</a>
+        <a href="{{ '/pics/' | relative_url }}" class="nav-link">Pics</a>
         <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
           <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="5"></circle>
@@ -105,44 +99,12 @@
 
     <footer class="site-footer">
       <div class="footer-content">
-        <div class="footer-left">
-          <p>&copy; {{ site.time | date: '%Y' }} {{ site.author }}. All rights reserved.</p>
+        <p>&copy; {{ site.time | date: '%Y' }} {{ site.author }}. All rights reserved.</p>
+        <div class="footer-social">
+          <a href="https://instagram.com/isaac_audet" target="_blank" aria-label="Instagram">Instagram</a>
+          <a href="https://tiktok.com/@isaacaude" target="_blank" aria-label="TikTok">TikTok</a>
+          <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
         </div>
-        <div class="footer-center">
-          <div class="footer-social">
-            <a href="https://instagram.com/isaac_audet" target="_blank" class="footer-social-link" aria-label="Instagram">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-              </svg>
-            </a>
-            <a href="https://tiktok.com/@isaacaude" target="_blank" class="footer-social-link" aria-label="TikTok">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M9 12a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"></path>
-                <path d="M15 8a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"></path>
-                <path d="M15 8v8a4 4 0 0 1-4 4"></path>
-                <line x1="15" y1="4" x2="15" y2="12"></line>
-              </svg>
-            </a>
-            <a href="https://github.com/isaacaudet" target="_blank" class="footer-social-link" aria-label="GitHub">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-              </svg>
-            </a>
-          </div>
-        </div>
-        <div class="footer-right">
-          <div class="footer-links">
-            <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
-            <a href="{{ '/about/' | relative_url }}">Contact</a>
-            <a href="{{ '/categories/' | relative_url }}">Categories</a>
-            <a href="{{ '/tags/' | relative_url }}">Tags</a>
-          </div>
-        </div>
-      </div>
-      <div class="footer-tagline">
-        <p>Exploring the intersection of technology and humanity</p>
       </div>
     </footer>
   </div>
@@ -190,7 +152,7 @@
           });
         }, { threshold: 0.1 });
 
-        document.querySelectorAll('h2, h3, p, blockquote, pre, .post-item, img, .gallery-item, .thought-card, .micro-thought').forEach(el => {
+        document.querySelectorAll('h2, h3, p, blockquote, pre, .post-item, img').forEach(el => {
           if (!el.classList.contains('visible') && !el.classList.contains('no-reveal')) {
             el.classList.add('reveal');
             observer.observe(el);

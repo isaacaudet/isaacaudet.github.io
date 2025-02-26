@@ -1,15 +1,19 @@
 title: Isaac Audet
-description: AI researcher, writer, and digital creator exploring the intersection of technology and humanity
-url: https://isaacaudet.com
+description: Personal blog and portfolio
 baseurl: ""
+url: "https://isaacaudet.com"
 author: Isaac Audet
 email: contact@isaacaudet.com
+instagram_username: isaac_audet
+tiktok_username: isaacaude
 
-# Social media
-social:
-  instagram: isaac_audet
-  tiktok: isaacaude
-  github: isaacaudet
+# Build settings
+markdown: kramdown
+permalink: /:title/
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
 
 # SEO settings
 twitter:
@@ -21,28 +25,38 @@ social:
   links:
     - https://instagram.com/isaac_audet
     - https://tiktok.com/@isaacaude
-    - https://github.com/isaacaudet
 
-# Build settings
-markdown: kramdown
-permalink: /:year/:month/:day/:title/
-plugins:
-  - jekyll-feed
-  - jekyll-seo-tag
-  - jekyll-paginate
-  - jekyll-sitemap
-
-# Pagination
-paginate: 5
-paginate_path: "/page:num/"
+# Collections
+collections:
+  projects:
+    output: true
+    permalink: /work/:path/
 
 # Defaults
 defaults:
-  -
-    scope:
+  - scope:
       path: ""
       type: "posts"
     values:
       layout: "post"
       author: "Isaac Audet"
-      image: /assets/images/default-post-image.jpg 
+  - scope:
+      path: ""
+      type: "projects"
+    values:
+      layout: "project"
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .sass-cache
+  - .jekyll-cache
+  - .git
+  - .gitignore 
